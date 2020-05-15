@@ -12,14 +12,14 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 
 def remove_container(container_id):
     container = client.containers.get(container_id)
-    container.remove
+    container.remove()
     for c in CONTAINERS:
         if c['id'] == container_id:
             CONTAINERS.remove(c)
 
 def start_container(container_id):
     container = client.containers.get(container_id)
-    container.start
+    container.start()
     i = 0
     for c in CONTAINERS:
         if c['id'] == container_id:
@@ -29,7 +29,7 @@ def start_container(container_id):
 
 def stop_container(container_id):
     container = client.containers.get(container_id)
-    container.stop
+    container.stop()
     i = 0
     for c in CONTAINERS:
         if c['id'] == container_id:
@@ -70,7 +70,15 @@ def all_containers():
             return jsonify(response_object)
 
     else:
-        response_object['containers'] = CONTAINERS
+        arr= []
+        for cont in client.containers.list(all=True):
+            arr.append({
+                'id': cont.short_id,
+                    'image': cont.image.tags[0],
+                    'status_container': cont.status
+            })
+
+        response_object['containers'] = arr
     
         return jsonify(response_object)
 
