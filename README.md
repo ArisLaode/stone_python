@@ -38,16 +38,17 @@ General requirements
    
     - $ systemctl start docker
     - $ systemctl enable docker
-    - $ docker create hello-world
+
+    - pull image nginx & http with command:
+    - $ docker pull nginx
+    - $ docker pull httpd
+    
 
 6. Add container in Vue app:
    - open http://localhost:8080
    - click button -> Add Container
-   - input text -> hello-world
+   - input text : nginx , or input text : httpd 
    - click submit
+   - note : container have to list from docker pull.
 
-# Note:
-  - check docker container in terminal with command:
-    - $ docker images 
-  - input name container by result docker image. Example, my container: hello-world, so in vue app I have to input my name container "hello-world".
-  - you can "start" , "stop" and "romove" in options Vue app.
+7. check create, running, stop and remove container in options dashboard app.
